@@ -1,0 +1,21 @@
+version: "3"
+services:
+              
+        server_2:
+                build: ./server_2
+                container_name: generate
+                volumes:
+                        - tp_docker:/date
+               
+        web1:
+                build: ./web1
+                container_name: web
+                depends_on:
+                        - server_2
+                volumes:
+                        - tp_docker:/usr/share/nginx/html
+
+               
+
+volumes:
+        tp_docker:

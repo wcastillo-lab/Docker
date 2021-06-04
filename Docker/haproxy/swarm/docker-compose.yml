@@ -1,0 +1,19 @@
+version: "3"
+services:
+ alpine:
+ image: alpine
+ command: ["sleep","3600"]
+ deploy:
+ mode: global
+ web:
+ image: httpd
+ deploy:
+ replicas: 4
+ restart_policy:
+ condition: on-failure
+ resources:
+ limits:
+ cpus: "0.1"
+ memory: 50M
+ ports:
+ - "80:80"

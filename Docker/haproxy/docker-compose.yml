@@ -1,0 +1,29 @@
+version: '3'
+services:
+        myhaproxy:
+                image: haproxy:1.7
+                volumes:
+                        - "/home/wcastillo/haproxy/myhaproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+                ports:
+                        - "80:80"
+                depends_on:
+                        - web1
+                        - web2
+                networks:
+                        - web
+        web1:
+                image: nginx:1.19-alpine
+                container_name: web1
+                volumes:
+                        - "/home/wcastillo/haproxy/web1:/usr/share/nginx/html"
+                networks:
+                        - web
+        Server_2:
+                image: nginx:1.19-alpine
+                container_name: web2
+                volumes:
+                        - "/home/wcastillo/haproxy/web2:/usr/share/nginx/html"
+                networks:
+                        - web
+networks:
+        web:
